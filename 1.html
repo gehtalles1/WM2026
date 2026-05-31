@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026美加墨世界杯：德国国家队预测首发及战术德语学堂</title>
+    <style>
+        :root {
+            --bg-main: #0C1E12; 
+            --bg-card: #132A1C;
+            --bg-card-hover: #1A3825;
+            --accent-gold: #FFCC00;
+            --accent-red: #DE2129;
+            --text-primary: #F3F4F6;
+            --text-secondary: #A3B899;
+            --pitch-green: #08160D;
+            --pitch-line: rgba(255, 255, 255, 0.15);
+            --success: #10B981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: repeating-linear-gradient(
+                to bottom,
+                #0C1E12,
+                #0C1E12 80px,
+                #122B1A 80px,
+                #122B1A 160px
+            );
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            position: relative;
+            background: linear-gradient(180deg, rgba(19, 42, 28, 0.9) 0%, rgba(12, 30, 18, 0) 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .logo-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(90deg, #000 0%, var(--accent-red) 50%, var(--accent-gold) 100%);
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            color: #FFF;
+            box-shadow: 0 4px 12px rgba(222, 33, 41, 0.15);
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FFF 60%, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            position: relative;
+            padding-left: 12px;
+            border-left: 4px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,204,0,0.2), transparent);
+            margin-left: 15px;
+        }
+
+        .grid-layout {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .col-pitch {
+            flex: 1.1;
+        }
+
+        .col-sidebar {
+            flex: 1.3;
+        }
+
+        .pitch-container {
+            background-color: var(--pitch-green);
+            border: 2px solid var(--pitch-line);
+            border-radius: 16px;
+            position: relative;
+            aspect-ratio: 3 / 4;
+            padding: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+            background-image: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.01),
+                rgba(255,255,255,0.01) 30px,
+                transparent 30px,
+                transparent 60px
+            );
+        }
+
+        .pitch-lines {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+        }
+        .line-center {
+            position: absolute;
+            top: 50%; left: 0; width: 100%; height: 2px;
+            background-color: var(--pitch-line);
+        }
+        .line-circle {
+            position: absolute;
+            top: 50%; left: 50%; width: 25%; aspect-ratio: 1;
+            border: 2px solid var(--pitch-line);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .line-box-top {
+            position: absolute;
+            top: 0; left: 22%; width: 56%; height: 16%;
+            border: 2px solid var(--pitch-line);
+            border-top: none;
+        }
+        .line-box-bottom {
+            position: absolute;
+            bottom: 0; left: 22%; width: 56%; height: 16%;
+            border: 2px solid var(--pitch-line);
+            border-bottom: none;
+        }
+        .line-arc-bottom {
+            position: absolute;
+            bottom: 16%; left: 50%; width: 15%; aspect-ratio: 1;
+            border: 2px solid var(--pitch-line);
+            border-radius: 50%;
+            transform: translate(-50%, 50%);
+            clip-path: inset(0 0 50% 0);
+        }
+
+        .player-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            text-align: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .player-shirt {
+            width: 36px;
+            height: 36px;
+            background: #09120D;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 4px auto;
+            color: #FFF;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 32px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.2s ease;
+        }
+
+        .player-node:hover .player-shirt {
+            transform: scale(1.15);
+            background: var(--accent-red);
+            border-color: #FFF;
+        }
+
+        .player-node.active .player-shirt {
+            background: #FFF;
+            color: #000;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px var(--accent-gold);
+        }
+
+        .player-name {
+            font-size: 11px;
+            background: rgba(8, 22, 13, 0.95);
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .analysis-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 500px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-profile-header {
+            margin-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 14px;
+        }
+
+        .card-header-meta {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .pos-badge {
+            background-color: rgba(255, 204, 0, 0.15);
+            color: var(--accent-gold);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .de-pos-title {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-left: 8px;
+            font-style: italic;
+        }
+
+        .analysis-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFF;
+            line-height: 1.3;
+            margin-top: 6px;
+        }
+
+        /* 视频语料容器简化：去掉了凌乱的顶部小标签，更专注于文字内容 */
+        .video-insight-box {
+            background-color: rgba(0,0,0,0.3);
+            padding: 22px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-red);
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .insight-de {
+            font-size: 17px;
+            font-weight: 600;
+            color: #FFFFFF;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .insight-zh {
+            font-size: 14px;
+            color: #C2D1BC;
+            line-height: 1.6;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 14px;
+        }
+
+        .lang-study-box {
+            background: linear-gradient(135deg, rgba(19,42,28,0.6) 0%, rgba(26,56,37,0.4) 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .lang-study-box h4 {
+            font-size: 13px;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .vocab-item {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .vocab-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .vocab-de {
+            font-weight: 700;
+            color: #FFF;
+            background: rgba(255,255,255,0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 4px;
+        }
+
+        .vocab-vault {
+            margin-top: 50px;
+        }
+
+        .vault-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .vault-row {
+            background-color: var(--bg-card);
+            transition: background-color 0.2s;
+        }
+
+        .vault-row:hover {
+            background-color: var(--bg-card-hover);
+        }
+
+        .vault-cell {
+            padding: 16px;
+            vertical-align: middle;
+            font-size: 14px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .vault-cell:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-left: 1px solid rgba(255,255,255,0.03);
+            font-weight: 700;
+            color: var(--accent-gold);
+            width: 30%;
+        }
+
+        .vault-cell:nth-child(2) {
+            width: 20%;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .vault-cell:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-right: 1px solid rgba(255,255,255,0.03);
+            width: 50%;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout {
+                flex-direction: column;
+            }
+            .vault-table, .vault-row, .vault-cell {
+                display: block;
+                width: 100% !important;
+            }
+            .vault-cell {
+                padding: 8px 16px;
+            }
+            .vault-cell:first-child {
+                border-bottom-left-radius: 0;
+                border-top-right-radius: 10px;
+                padding-top: 16px;
+            }
+            .vault-cell:last-child {
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 10px;
+                padding-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-badge">DEUTSCH & FUSSBALL</div>
+        <h1>2026美加墨世界杯：德国国家队预测首发及战术德语学堂</h1>
+        <p>点击下方球场首发阵型中的球员，右侧即可同步展现该位置的战术复盘及核心语料。</p>
+    </header>
+
+    <div class="container">
+        
+        <h2 class="section-title">首发十一人战术沙盘 (阵型：4-2-3-1)</h2>
+        
+        <div class="grid-layout">
+            <div class="col-pitch">
+                <div class="pitch-container">
+                    <div class="pitch-lines">
+                        <div class="line-center"></div>
+                        <div class="line-circle"></div>
+                        <div class="line-box-top"></div>
+                        <div class="line-box-bottom"></div>
+                        <div class="line-arc-bottom"></div>
+                    </div>
+
+                    <!-- 门将 -->
+                    <div class="player-node active" style="top: 88%; left: 50%;" onclick="showPlayer(this, 'baumann')">
+                        <span class="player-shirt">1</span>
+                        <div class="player-name">鲍曼 Baumann</div>
+                    </div>
+
+                    <!-- 后卫线 -->
+                    <div class="player-node" style="top: 72%; left: 18%;" onclick="showPlayer(this, 'raum')">
+                        <span class="player-shirt">3</span>
+                        <div class="player-name">劳姆 Raum</div>
+                    </div>
+                    <div class="player-node" style="top: 75%; left: 38%;" onclick="showPlayer(this, 'schlotterbeck')">
+                        <span class="player-shirt">4</span>
+                        <div class="player-name">施洛特贝克</div>
+                    </div>
+                    <div class="player-node" style="top: 75%; left: 62%;" onclick="showPlayer(this, 'tah')">
+                        <span class="player-shirt">5</span>
+                        <div class="player-name">塔 Tah</div>
+                    </div>
+                    <div class="player-node" style="top: 72%; left: 82%;" onclick="showPlayer(this, 'kimmich')">
+                        <span class="player-shirt">6</span>
+                        <div class="player-name">基米希 Kimmich</div>
+                    </div>
+
+                    <!-- 双后腰 -->
+                    <div class="player-node" style="top: 55%; left: 35%;" onclick="showPlayer(this, 'nmecha')">
+                        <span class="player-shirt">8</span>
+                        <div class="player-name">恩梅查 Nmecha</div>
+                    </div>
+                    <div class="player-node" style="top: 55%; left: 65%;" onclick="showPlayer(this, 'pavlovic')">
+                        <span class="player-shirt">10</span>
+                        <div class="player-name">帕夫洛维奇</div>
+                    </div>
+
+                    <!-- 前腰 / 边锋 -->
+                    <div class="player-node" style="top: 35%; left: 20%;" onclick="showPlayer(this, 'wirtz')">
+                        <span class="player-shirt">17</span>
+                        <div class="player-name">维尔茨 Wirtz</div>
+                    </div>
+                    <div class="player-node" style="top: 32%; left: 50%;" onclick="showPlayer(this, 'musiala')">
+                        <span class="player-shirt">14</span>
+                        <div class="player-name">穆西亚拉</div>
+                    </div>
+                    <div class="player-node" style="top: 35%; left: 80%;" onclick="showPlayer(this, 'karl')">
+                        <span class="player-shirt">19</span>
+                        <div class="player-name">卡尔 Karl</div>
+                    </div>
+
+                    <!-- 单前锋 -->
+                    <div class="player-node" style="top: 15%; left: 50%;" onclick="showPlayer(this, 'undav')">
+                        <span class="player-shirt">26</span>
+                        <div class="player-name">昂达夫 Undav</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧简洁化面板 -->
+            <div class="col-sidebar">
+                <div class="analysis-card" id="analysisCard">
+                    <div class="card-profile-header">
+                        <span class="card-header-meta">
+                            <span class="pos-badge" id="posBadge">Torwart</span>
+                            <span class="de-pos-title" id="dePosTitle">门将</span>
+                        </span>
+                        <h3 id="pName">奥利弗·鲍曼 (Oliver Baumann)</h3>
+                    </div>
+                    
+                    <div class="video-insight-box">
+                        <div class="insight-de" id="pDeSentence">Da Neuer kein Risiko eingehen will, sitzt Baumann heute fest im Sattel.</div>
+                        <div class="insight-zh" id="pZhExplanation">由于诺伊尔出于稳妥考虑本场继续高挂免战牌，不冒任何风险，霍芬海姆老将鲍曼将牢牢坐稳首发位置。</div>
+                    </div>
+
+                    <div class="lang-study-box">
+                        <h4>📋 核心德语词汇扩展：</h4>
+                        <div id="pLang">
+                            <div class="vocab-item"><span class="vocab-de">passen</span> 缺席 / 放弃（指诺伊尔本场缺阵）</div>
+                            <div class="vocab-item"><span class="vocab-de">kein Risiko eingehen</span> 不冒任何风险</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 词汇积累板块：一倍扩容，总计 30 个包含动词、词组、固定搭配的多样化词汇库 -->
+        <div class="vocab-vault">
+            <h2 class="section-title">硬核德语词汇与比赛基础用语 (共 30 核心词)</h2>
+            <table class="vault-table">
+                <!-- 基础名词篇 -->
+                <tr class="vault-row">
+                    <td class="vault-cell">Die Startelf</td>
+                    <td class="vault-cell">[名词] 首发十一人</td>
+                    <td class="vault-cell">由 Start（开始）+ elf（十一）组合而成，球评中最核心的词汇。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Torwart</td>
+                    <td class="vault-cell">[名词] 门将 / 守门员</td>
+                    <td class="vault-cell">负责守护球门的最后防线，也常称作 Torhüter。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Abwehrspieler</td>
+                    <td class="vault-cell">[名词] 后卫 / 防守球员</td>
+                    <td class="vault-cell">包含中后卫（Innenverteidiger）与边后卫（Außenverteidiger）。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Mittelfeldspieler</td>
+                    <td class="vault-cell">[名词] 中场球员</td>
+                    <td class="vault-cell">连接攻防两端的枢纽，分为防守型（后腰）与进攻型（前腰）。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Stürmer</td>
+                    <td class="vault-cell">[名词] 前锋 / 攻击手</td>
+                    <td class="vault-cell">负责在前场完成致命一击、切入得分的禁区终结者。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Unterschiedsspieler</td>
+                    <td class="vault-cell">[名词] 关键变数球员</td>
+                    <td class="vault-cell">盛赞拥有以一己之力打破僵局、决定比赛走向能力的顶级球星。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Die Hybridrolle</td>
+                    <td class="vault-cell">[名词] 混合位置角色</td>
+                    <td class="vault-cell">指战术多维打法（如基米希防守时居右、控球时内切到中场组织）。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Das Abseits</td>
+                    <td class="vault-cell">[名词] 越位</td>
+                    <td class="vault-cell">球场高频判罚。处于越位位置常写作 im Abseits stehen。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Die Schwalbe</td>
+                    <td class="vault-cell">[名词] 假摔（本意为燕子）</td>
+                    <td class="vault-cell">经典绿茵梗。形容球员像燕子一样飞身倒地。假摔的球员会被讽刺为 <strong>Der Schauspieler（演员）</strong>。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Das Gegenpressing</td>
+                    <td class="vault-cell">[名词] 高位就地反抢</td>
+                    <td class="vault-cell">德式战术基石，强调丢球后黄金3-5秒内前场立刻疯狂合围。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Freistoß</td>
+                    <td class="vault-cell">[名词] 任意球</td>
+                    <td class="vault-cell">因对方犯规获得的罚球。直接任意球称为 direkter Freistoß。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Eckball / Die Ecke</td>
+                    <td class="vault-cell">[名词] 角球</td>
+                    <td class="vault-cell">常规战术大杀器。开角球一般使用动词 eine Ecke treten / schlagen。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Elfmeter / Strafstoß</td>
+                    <td class="vault-cell">[名词] 点球 / 十二码极刑</td>
+                    <td class="vault-cell">禁区内严厉判罚。点球大战被称为 Elfmeterschießen。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Konter</td>
+                    <td class="vault-cell">[名词] 防守反击</td>
+                    <td class="vault-cell">在对手全线压上未稳时快速通过中场的致命冷箭。如 einen Konter fahren。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Die Nachspielzeit</td>
+                    <td class="vault-cell">[名词] 伤停补时</td>
+                    <td class="vault-cell">常规90分钟结束后，由第四官员举牌补足的比赛额外时间。</td>
+                </tr>
+
+                <!-- 新增：赛果、动词、词组、短语扩展篇 -->
+                <tr class="vault-row">
+                    <td class="vault-cell">unentschieden spielen</td>
+                    <td class="vault-cell">[动词短语] 踢成平局 / 打平</td>
+                    <td class="vault-cell">例句：Das Spiel endete unentschieden.（比赛以平局告终。）名词为 <strong>Das Unentschieden</strong>。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">ein Tor erzielen / schießen</td>
+                    <td class="vault-cell">[动词短语] 取得进球 / 得分</td>
+                    <td class="vault-cell">解说中最常用的破门表达。erzielen 更书面化，schießen 更接地气。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Die gelbe / rote Karte sehen</td>
+                    <td class="vault-cell">[动词短语] 领到黄牌 / 红牌</td>
+                    <td class="vault-cell">字面意思为“看到牌”。被红牌直接罚下也可以用 <strong>vom Platz fliegen</strong>（飞出球场）。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Eine Flanke schlagen</td>
+                    <td class="vault-cell">[动词短语] 边路传中 / 起球</td>
+                    <td class="vault-cell">边后卫或边锋在两侧把球高吊传入禁区的核心进攻动作。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Den Ball erobern</td>
+                    <td class="vault-cell">[动词短语] 断球 / 夺回球权</td>
+                    <td class="vault-cell">强调通过逼抢或拦截成功把球从对手脚下抢回，名词是 <strong>Die Balleroberung</strong>。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Zu Null spielen</td>
+                    <td class="vault-cell">[动词短语] 零封对手 / 保持清白之躯</td>
+                    <td class="vault-cell">指门将和后防线全场没有丢球。例：Baumann hat heute zu Null gespielt.</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">jemanden einwechseln</td>
+                    <td class="vault-cell">[可拆分动词] 换上某人</td>
+                    <td class="vault-cell">教练在比赛中调整战术或换上替补奇兵。反义词“换下”为 <strong>auswechseln</strong>。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Der Doppelpack</td>
+                    <td class="vault-cell">[名词] 梅开二度</td>
+                    <td class="vault-cell">单场比赛个人独中两元。如果进了三个球则被称为 <strong>Der Hattrick（帽子戏法）</strong>。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Das Foulspiel / foulen</td>
+                    <td class="vault-cell">[名词 / 动词] 犯规</td>
+                    <td class="vault-cell">场上的违法身体对抗。恶意犯规通常被称为 grobes Foul。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Die Mauer</td>
+                    <td class="vault-cell">[名词] 人墙</td>
+                    <td class="vault-cell">本意是墙。防守任意球时，多名防守队员并排站立阻挡射门角度的战术防守防线。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Die Tabellenführung</td>
+                    <td class="vault-cell">[名词] 积分榜首 / 领头羊位置</td>
+                    <td class="vault-cell">由 Tabelle（表格/榜单）+ Führung（领先）组合，指占据联赛或小组第一名。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">spielbestimmend</td>
+                    <td class="vault-cell">[形容词] 控场的 / 主导比赛的</td>
+                    <td class="vault-cell">用来形容全场牢牢掌控控球率和进攻节奏、压着对手打的一方。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Das Heimspiel</td>
+                    <td class="vault-cell">[名词] 主场比赛</td>
+                    <td class="vault-cell">在自家球场进行的比赛，拥有球迷优势。反义词客场比赛为 <strong>Das Auswärtsspiel</strong>。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Den Sack zumachen</td>
+                    <td class="vault-cell">[熟语/惯用型] 锁定胜局 / 扎紧口袋</td>
+                    <td class="vault-cell">足球解说黄金高频词。比喻在比赛后半段扩大比分，让对手彻底失去翻盘希望。</td>
+                </tr>
+                <tr class="vault-row">
+                    <td class="vault-cell">Die Todesgruppe</td>
+                    <td class="vault-cell">[名词] 死亡之组</td>
+                    <td class="vault-cell">国际大赛抽签中，多支顶级强队汇聚、竞争极其惨烈的超级恐怖小组。</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        const playerData = {
+            baumann: {
+                pos: 'Torwart / 门将',
+                name: '奥利弗·鲍曼 (Oliver Baumann)',
+                deSentence: 'Da Neuer kein Risiko eingehen will, sitzt Baumann heute fest im Sattel.',
+                zhExplanation: '由于诺伊尔出于稳妥考虑本场继续高挂免战牌、不冒任何风险，霍芬海姆老将鲍曼将牢牢坐稳首发位置。他在国家队展现了极高的心理素质和完全服务团队的奉献精神。',
+                lang: '<div class="vocab-item"><span class="vocab-de">passen</span> 缺席 / 放弃</div><div class="vocab-item"><span class="vocab-de">kein Risiko eingehen</span> 不冒任何风险</div>'
+            },
+            raum: {
+                pos: 'Linksverteidiger / 左后卫',
+                name: '大卫·劳姆 (David Raum)',
+                deSentence: 'Im Kampf um die Linksverteidiger-Position hat David Raum aktuell klar die Nase vorne.',
+                zhExplanation: '在左后卫主力位置的激烈选拔中，大卫·劳姆目前已经明显走在了前面。他极为出色的前插传中能力和德式边路冲击力，是国家队破密集防守的利器。',
+                lang: '<div class="vocab-item"><span class="vocab-de">die Nase vorne haben</span> 占得先机 / 处于领先顺位</div>'
+            },
+            schlotterbeck: {
+                pos: 'Innenverteidiger / 中后卫',
+                name: '尼科·施洛特贝克 (Nico Schlotterbeck)',
+                deSentence: 'Er bildet gemeinsam mit Jonathan Tah das unumstrittene Stammduo in der Abwehrkette.',
+                zhExplanation: '在目前的战术考量下，他与乔纳坦·塔（Jonathan Tah）已经组成了全队最无可争议的固定主力中卫搭档。吕迪格、安东等人目前只能作为替补或特殊轮换。',
+                lang: '<div class="vocab-item"><span class="vocab-de">das Stammduo</span> 固定主力搭档</div><div class="vocab-item"><span class="vocab-de">die Abwehrkette</span> 后防线</div>'
+            },
+            tah: {
+                pos: 'Innenverteidiger / 中后卫',
+                name: '乔纳坦·塔 (Jonathan Tah)',
+                deSentence: 'Für die Nationalelf gilt es, die defensive Struktur beizubehalten und keine unnötigen Experimente zu wagen.',
+                zhExplanation: '作为后防线的定海神针，球队目前最核心的任务是保持阵型结构的连贯性与连胜默契度，严禁像弗里克时代那样频繁变换防线人员去进行盲目的战术实验。',
+                lang: '<div class="vocab-item"><span class="vocab-de">die Struktur beibehalten</span> 保持阵型结构的连贯性</div><div class="vocab-item"><span class="vocab-de">Experimente wagen</span> 敢于尝试实验</div>'
+            },
+            kimmich: {
+                pos: 'Rechtsverteidiger / 右后卫',
+                name: '约书亚·基米希 (Joshua Kimmich)',
+                deSentence: 'Kimmich interpretiert seine Rolle sehr hybrid: Bei Ballbesitz rückt er konsequent ins Mittelfeld ein, was jedoch ein hohes Risiko für Fehlpässe im Aufbau birgt.',
+                zhExplanation: '基米希将继续踢他标志性的“内切混合角色”，在控球时前插至中场参与组织。这虽然能最大化他的出球天赋，但一旦在组织进攻时发生传球失误，右路就会留下致命的巨大空档。',
+                lang: '<div class="vocab-item"><span class="vocab-de">ins Mittelfeld einrücken</span> 内切进入中场</div><div class="vocab-item"><span class="vocab-de">der Fehlpass im Aufbau</span> 组织进攻时的传球失误</div>'
+            },
+            nmecha: {
+                pos: 'Zentrales Mittelfeld / 后腰',
+                name: '菲利克斯·恩梅查 (Felix Nmecha)',
+                deSentence: 'Trotz des jüngsten Verletzungspechs hat er im Verein bewiesen, dass er bereit für die Startelf is.',
+                zhExplanation: '中场黄金搭档之一。本赛季在多特蒙德打出了极强的核心统治力，尽管最近经历了一些倒霉的伤病困扰，但能打满90分钟的表现证明他的身体已经无限接近100%的最佳状态。',
+                lang: '<div class="vocab-item"><span class="vocab-de">das Verletzungspech</span> 倒霉的伤病状态</div>'
+            },
+            pavlovic: {
+                pos: 'Zentrales Mittelfeld / 后腰',
+                name: '亚历山大·帕夫洛维奇 (A. Pavlović)',
+                deSentence: 'Nach einer bärenstarken Saison steht der Youngster absolut verdient in der ersten Elf.',
+                zhExplanation: '拜仁慕尼黑本赛季现象级的超级新星，与恩梅查联袂首发绝对是实至名归。他们两人的中场组合极具创造力、拦截性与年轻对抗性，是基米希不打中场时的战术最优解。',
+                lang: '<div class="vocab-item"><span class="vocab-de">bärenstark</span> 极其强悍的（像熊一样强壮）</div><div class="vocab-item"><span class="vocab-de">absolut verdient</span> 绝对实至名归</div>'
+            },
+            wirtz: {
+                pos: 'Linker Flügel / 左边锋',
+                name: '弗洛里安·维尔茨 (Florian Wirtz)',
+                deSentence: 'Wirtz ist der wahre Unterschiedsspieler. Seine jüngsten Auftritte beim DFB waren absolut phänomenal.',
+                zhExplanation: '真正的战术胜负手、核心变数球员。虽然在俱乐部经历了一个位置与打法的适应赛季，但在国家队最近的几场关键国际比赛中，他的表现是绝对现象级的。',
+                lang: '<div class="vocab-item"><span class="vocab-de">der Unterschiedsspieler</span> 改变战局的关键球员</div><div class="vocab-item"><span class="vocab-de">phänomenal</span> 现象级的 / 惊人的</div>'
+            },
+            musiala: {
+                pos: 'Offensives Mittelfeld / 前腰',
+                name: '贾马尔·穆西亚拉 (Jamal Musiala)',
+                deSentence: 'Nach seiner schweren Verletzung braucht er jetzt vor allem Spielpraxis, um das volle Vertrauen in seinen Körper zurückzugewinnen.',
+                zhExplanation: '在大伤复出后，他目前的赛场表现还有些稳扎稳打。他现在最急需的是充足的比赛实战机会来重新建立对身体爆发力的信任，他与维尔茨的“前场双子星”上限极高。',
+                lang: '<div class="vocab-item"><span class="vocab-de">die Spielpraxis</span> 比赛实战经验与球感</div>'
+            },
+            karl: {
+                pos: 'Rechter Flügel / 右边锋',
+                name: '伦纳德·卡尔 (Lennart Karl)',
+                deSentence: 'Er gilt als brandgefährliche Einwechseloption, bekommt heute aber die Chance von Beginn an.',
+                zhExplanation: '本场比赛的核心看点之一！虽然在正赛中他可能更多作为下半场的替补奇兵登场（带起节奏并冲击对手疲惫的防线），但本场热身赛他直接获得了首发机会，顺位已暂时压过萨内。',
+                lang: '<div class="vocab-item"><span class="vocab-de">die Einwechseloption</span> 替补奇兵选项</div><div class="vocab-item"><span class="vocab-de">von Beginn an</span> 从一开始 / 首发</div>'
+            },
+            undav: {
+                pos: 'Stürmer / 前锋',
+                name: '丹尼斯·昂达夫 (Deniz Undav)',
+                deSentence: 'Aufgrund des Ausfalls von Havertz hat Undav im Sturmzentrum eine absolute Startelf-Garantie.',
+                zhExplanation: '由于哈弗茨缺席，昂达夫作为单中锋首发出战是板上钉钉的“铁定首发”。他的主要竞争对手沃尔特马德目前在俱乐部因为战术位置被放错，正处于信心低谷期。',
+                lang: '<div class="vocab-item"><span class="vocab-de">die Startelf-Garantie</span> 铁定的首发保证</div><div class="vocab-item"><span class="vocab-de">das Sturmzentrum</span> 中锋位置</div>'
+            }
+        };
+
+        function showPlayer(element, key) {
+            const nodes = document.querySelectorAll('.player-node');
+            nodes.forEach(node => node.classList.remove('active'));
+            
+            if (element) {
+                element.classList.add('active');
+            }
+
+            const data = playerData[key];
+            if (!data) return;
+
+            document.getElementById('posBadge').innerText = data.pos.split(' / ')[0];
+            document.getElementById('dePosTitle').innerText = data.pos.split(' / ')[1];
+            document.getElementById('pName').innerHTML = data.name;
+            document.getElementById('pDeSentence').innerText = data.deSentence;
+            document.getElementById('pZhExplanation').innerText = data.zhExplanation;
+            document.getElementById('pLang').innerHTML = data.lang;
+        }
+    </script>
+</body>
+</html>
